@@ -1,86 +1,37 @@
-import { useState } from 'react';
-import Checkbox from '@mui/material/Checkbox';
+import { SyntheticEvent, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CitiesSelectListItem from './CitiesSelectListItem';
+import { City } from '../../types/city';
 
-const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
-  {
-    title: 'The Lord of the Rings: The Return of the King',
-    year: 2003,
-  },
-  { title: 'The Good, the Bad and the Ugly', year: 1966 },
-  { title: 'Fight Club', year: 1999 },
-  {
-    title: 'The Lord of the Rings: The Fellowship of the Ring',
-    year: 2001,
-  },
-  {
-    title: 'Star Wars: Episode V - The Empire Strikes Back',
-    year: 1980,
-  },
-  { title: 'Forrest Gump', year: 1994 },
-  { title: 'Inception', year: 2010 },
-  {
-    title: 'The Lord of the Rings: The Two Towers',
-    year: 2002,
-  },
-  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-  { title: 'Goodfellas', year: 1990 },
-  { title: 'The Matrix', year: 1999 },
-  { title: 'Seven Samurai', year: 1954 },
-  {
-    title: 'Star Wars: Episode IV - A New Hope',
-    year: 1977,
-  },
-  { title: 'City of God', year: 2002 },
-  { title: 'Se7en', year: 1995 },
-  { title: 'The Silence of the Lambs', year: 1991 },
-  { title: "It's a Wonderful Life", year: 1946 },
-  { title: 'Life Is Beautiful', year: 1997 },
-  { title: 'The Usual Suspects', year: 1995 },
-  { title: 'Léon: The Professional', year: 1994 },
-  { title: 'Spirited Away', year: 2001 },
-  { title: 'Saving Private Ryan', year: 1998 },
-  { title: 'Once Upon a Time in the West', year: 1968 },
-  { title: 'American History X', year: 1998 },
-  { title: 'Interstellar', year: 2014 },
-];
+const cities = [{"country": "Andorra", "geonameid": 3040051, "name": "les Escaldes", "subcountry": "Escaldes-Engordany"},{"country": "Andorra", "geonameid": 3041563, "name": "Andorra la Vella", "subcountry": "Andorra la Vella"},{"country": "United Arab Emirates", "geonameid": 290594, "name": "Umm al Qaywayn", "subcountry": "Umm al Qaywayn"},{"country": "United Arab Emirates", "geonameid": 291074, "name": "Ras al-Khaimah", "subcountry": "Ra\u02bcs al Khaymah"},{"country": "United Arab Emirates", "geonameid": 291696, "name": "Khawr Fakk\u0101n", "subcountry": "Ash Sh\u0101riqah"},{"country": "United Arab Emirates", "geonameid": 292223, "name": "Dubai", "subcountry": "Dubai"},{"country": "United Arab Emirates", "geonameid": 292231, "name": "Dibba Al-Fujairah", "subcountry": "Al Fujayrah"},{"country": "United Arab Emirates", "geonameid": 292239, "name": "Dibba Al-Hisn", "subcountry": "Al Fujayrah"},{"country": "United Arab Emirates", "geonameid": 292672, "name": "Sharjah", "subcountry": "Ash Sh\u0101riqah"},{"country": "United Arab Emirates", "geonameid": 292688, "name": "Ar Ruways", "subcountry": "Abu Dhabi"},{"country": "United Arab Emirates", "geonameid": 292878, "name": "Al Fujayrah", "subcountry": "Al Fujayrah"},{"country": "United Arab Emirates", "geonameid": 292913, "name": "Al Ain", "subcountry": "Abu Dhabi"},{"country": "United Arab Emirates", "geonameid": 292932, "name": "Ajman", "subcountry": "Ajman"},{"country": "United Arab Emirates", "geonameid": 292953, "name": "Adh Dhayd", "subcountry": "Ash Sh\u0101riqah"},{"country": "United Arab Emirates", "geonameid": 292968, "name": "Abu Dhabi", "subcountry": "Abu Dhabi"},{"country": "Afghanistan", "geonameid": 1120985, "name": "Zaranj", "subcountry": "N\u012bmr\u016bz"},{"country": "Afghanistan", "geonameid": 1123004, "name": "Taloqan", "subcountry": "Takh\u0101r"},{"country": "Afghanistan", "geonameid": 1125155, "name": "Sh\u012bn\u1e0fan\u1e0f", "subcountry": "Herat"},{"country": "Afghanistan", "geonameid": 1125444, "name": "Shibirgh\u0101n", "subcountry": "Jowzj\u0101n"},{"country": "Afghanistan", "geonameid": 1125896, "name": "Shahrak", "subcountry": "Ghowr"},{"country": "Afghanistan", "geonameid": 1127110, "name": "Sar-e Pul", "subcountry": "Sar-e Pol"},{"country": "Afghanistan", "geonameid": 1127628, "name": "Sang-e Ch\u0101rak", "subcountry": "Sar-e Pol"},{"country": "Afghanistan", "geonameid": 1127768, "name": "A\u012bbak", "subcountry": "Samang\u0101n"}];
 
 const CitiesSelect = () => {
-  /*const [value, setValue] = useState<string | null>();
-  const [inputValue, setInputValue] = useState('');
+  const [value, setValue] = useState<City[]>([]);
+  const [inputValue, setInputValue] = useState<string>('');
 
-  const handleChange = (event: any, newValue: any) => {
+  const handleValueChange = (event: SyntheticEvent, newValue: City[]) => {
     setValue(newValue);
-  };*/
+  };
+
+  const handleInputChange = (event: SyntheticEvent, newValue: string) => {
+    setInputValue(newValue);
+  };
 
   return (
     <Autocomplete
       multiple
       sx={{ m: 1, width: 1024 }}
+      value={value}
+      onChange={handleValueChange}
+      inputValue={inputValue}
+      onInputChange={handleInputChange}
       id="cities-select"
-      options={top100Films}
+      options={cities}
       disableCloseOnSelect
-      getOptionLabel={(option) => option.title}
+      getOptionLabel={(option) => option.name}
       renderOption={(props, option, { selected }) => (
-        <li {...props}>
-          <Checkbox
-            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-            checkedIcon={<CheckBoxIcon fontSize="small" />}
-            style={{ marginRight: 8 }}
-            checked={selected}
-          />
-          {option.title}
-        </li>
+        <CitiesSelectListItem selected={selected} option={option} {...props} />
       )}
       renderInput={(params) => (
         <TextField {...params} placeholder="Type to filter by city, name or country" />
