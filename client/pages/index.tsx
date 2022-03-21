@@ -1,20 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { NextPage } from 'next'
+import { useEffect, useState } from 'react';
 import useFetch from 'use-http';
-import get from 'lodash/get';
+import lodashGet from 'lodash/get';
 import styles from '../styles/Home.module.scss'
 import CitiesSelect from '../components/CitiesSelect'
 import Title from '../components/Title';
 import HeadMeta from '../components/PageCommons/HeadMeta';
 import Footer from '../components/PageCommons/Footer';
-import { Cities } from '../types/city';
 
-const url = 'http://localhost:3030/cities';
+const url = process.env.NEXT_PUBLIC_API_URL;
 
 const Home: NextPage = () => {
-  const { loading, error, data = [] } = useFetch(url, {}, [])
+  const [cities, setCities] = useState([]);
+  const [activeLoading, setActiveLoading] = useState(false);
+  const { get, response, loading, error } = useFetch(url);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      const cities = await get('/cities');
+      if (response.ok) setCities(cities)
+      setActiveLoading(!activeLoading);
+    };
+
+    fetchCities();
+  }, []);
 
   if (error) return <p>There is an error.</p>
-  if (loading) return <p>Loading...</p>
+  if (loading && !activeLoading) return <p>Loading...</p>
 
   return (
     <div className={styles.container}>
@@ -23,7 +36,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Title title={'Select your favorite cities'} />
 
-        <CitiesSelect cities={get(data, 'data', [])} />
+        <CitiesSelect cities={lodashGet(cities, 'data', [])} />
       </main>
 
       <Footer />
