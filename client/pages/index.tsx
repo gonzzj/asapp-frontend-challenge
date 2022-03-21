@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       <HeadMeta />
 
       <main className={styles.main}>
-        <Title title={'Select your favorite cities'} />
+        <Title label={'Select your favorite cities'} />
 
         <CitiesSelect cities={lodashGet(cities, 'data', [])} />
       </main>

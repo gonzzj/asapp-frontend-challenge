@@ -1,12 +1,12 @@
 import Typography from "@mui/material/Typography";
 
 interface PageTitleProps {
-  title: string
+  label: string
 }
 
-const Title: React.FC<PageTitleProps> = ({ title }) => (
+const Title: React.FC<PageTitleProps> = ({ label }) => (
   <Typography variant={'h2'} component={'h1'}>
-    {title}
+    {label}
   </Typography>
 );
 

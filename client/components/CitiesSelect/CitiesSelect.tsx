@@ -32,6 +32,7 @@ const CitiesSelect: React.FC<CitiesSelectProps> = ({ cities }) => {
   return (
     <Autocomplete
       multiple
+      open
       id="cities-select"
       sx={{ m: 4, width: 860 }}
       filterOptions={filterOptions}
