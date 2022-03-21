@@ -36,8 +36,12 @@ const CitiesSelectList: React.FC = forwardRef<HTMLDivElement, React.HTMLAttribut
   });
 
   const itemCount = itemData.length;
-  const itemSize = 48;
-  const listHeight = 400;
+  const itemSize = 64;
+
+  const getHeight = (): number => {
+    if (itemCount > 8) return 8 * itemSize;
+    return itemData.map(() => itemSize).reduce((a, b) => a + b, 0);
+  };
 
   const gridRef = useResetCache(itemCount);
 
@@ -46,7 +50,7 @@ const CitiesSelectList: React.FC = forwardRef<HTMLDivElement, React.HTMLAttribut
       <OuterElementContext.Provider value={others}>
         <VariableSizeList
           itemData={itemData}
-          height={listHeight}
+          height={getHeight()}
           width="100%"
           ref={gridRef}
           outerElementType={OuterElementType}
