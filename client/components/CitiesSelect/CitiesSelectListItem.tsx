@@ -1,18 +1,27 @@
+import { useMemo } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { City } from '../../types/city';
-import { getCaption } from '../../helpers/cities';
+import { getMatchParts } from '../../helpers/cities';
+import CitiesSelectListItemHighlight from './CitiesSelectListItemHighlight';
 
 interface CitiesSelectListItemProps {
   selected: boolean,
-  option: City
+  option: City,
+  inputValue: string,
 }
 
-const CitiesSelectListItem: React.FC<CitiesSelectListItemProps> = ({ selected, option, ...props }) => {
+const CitiesSelectListItem: React.FC<CitiesSelectListItemProps> = ({ selected, option, inputValue, ...props }) => {
   const { name, subcountry, country } = option;
-  const caption = getCaption(country, subcountry);
+  const [cityNameParts, citySubCountryParts, cityCountryParts] = useMemo(() => {
+    const cityNameParts = getMatchParts(inputValue, name);
+    const citySubCountryParts = getMatchParts(inputValue, subcountry);
+    const cityCountryParts = getMatchParts(inputValue, country);
+
+    return [cityNameParts, citySubCountryParts, cityCountryParts];
+  }, [inputValue]);
 
   return (
     <li {...props}>
@@ -24,10 +33,12 @@ const CitiesSelectListItem: React.FC<CitiesSelectListItemProps> = ({ selected, o
       />
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Typography variant="body1">
-          {name}
+          <CitiesSelectListItemHighlight parts={cityNameParts} />
         </Typography>
         <Typography variant="caption" style={{ color: '#888' }}>
-          {caption}
+          <CitiesSelectListItemHighlight parts={citySubCountryParts} />
+          {subcountry ? ' - ' : ''}
+          <CitiesSelectListItemHighlight parts={cityCountryParts} />
         </Typography>
       </div>
     </li>

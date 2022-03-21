@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { SyntheticEvent, useState } from 'react';
 import { matchSorter } from 'match-sorter';
 import TextField from '@mui/material/TextField';
@@ -44,7 +43,7 @@ const CitiesSelect: React.FC<CitiesSelectProps> = ({ cities }) => {
       getOptionLabel={({ name, subcountry, country}) => `${name} (${getCaption(country, subcountry)})`}
       disableListWrap
       ListboxComponent={CitiesSelectList}
-      renderOption={(props, option, { selected }) => [props, option, selected]}
+      renderOption={(props, option, { selected, inputValue }) => [props, option, selected, inputValue]}
       renderInput={(params) => (
         <TextField {...params} placeholder={CITIES_SELECT_PLACEHOLDER} />
       )}

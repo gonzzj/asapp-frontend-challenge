@@ -1,13 +1,12 @@
-/* eslint-disable react/display-name */
 import { createContext, forwardRef, useContext, useRef, useEffect } from 'react';
 import { VariableSizeList, ListChildComponentProps } from "react-window";
 import CitiesSelectListItem from './CitiesSelectListItem';
 
 const renderListItem = ({ data, index, style }: ListChildComponentProps) => {
-  const [listItemProps, option, selected] = data[index];
+  const [listItemProps, option, selected, inputValue] = data[index];
 
   return (
-    <CitiesSelectListItem {...listItemProps} selected={selected} option={option} key={listItemProps.id} style={{...style}} />
+    <CitiesSelectListItem {...listItemProps} selected={selected} option={option} inputValue={inputValue} key={listItemProps.id} style={{...style}} />
   );
 }
 
