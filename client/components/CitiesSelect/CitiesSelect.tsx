@@ -11,7 +11,7 @@ interface CitiesSelectProps {
   cities: City[]
 }
 
-const CitiesSelect = ({ cities }: CitiesSelectProps) => {
+const CitiesSelect: React.FC<CitiesSelectProps> = ({ cities }) => {
   const [value, setValue] = useState<City[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -30,7 +30,7 @@ const CitiesSelect = ({ cities }: CitiesSelectProps) => {
   return (
     <Autocomplete
       multiple
-      sx={{ m: 1, width: 1024 }}
+      sx={{ m: 4, width: 860 }}
       filterOptions={filterOptions}
       value={value}
       onChange={handleValueChange}

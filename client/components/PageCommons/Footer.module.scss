@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  flex: 1;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+  height: 84px;
+
+  a {
+    display: flex;
+    padding: 2rem 0;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+}

@@ -9,7 +9,7 @@ interface CitiesSelectListItemProps {
   option: City
 }
 
-const CitiesSelectListItem = ({ selected, option, ...props }: CitiesSelectListItemProps) => {
+const CitiesSelectListItem: React.FC<CitiesSelectListItemProps> = ({ selected, option, ...props }) => {
   const { name, subcountry, country } = option;
   const caption = subcountry ? `${subcountry} - ${country}` : country;
 
