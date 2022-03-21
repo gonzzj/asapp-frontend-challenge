@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CitiesSelectList from './CitiesSelectList';
 import { City } from '../../types/city';
+import { getCaption } from '../../helpers/cities';
 
 const CITIES_SELECT_PLACEHOLDER = "Type to filter by city name or country";
 
@@ -40,7 +41,7 @@ const CitiesSelect: React.FC<CitiesSelectProps> = ({ cities }) => {
       onInputChange={handleInputChange}
       disableCloseOnSelect
       options={cities}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={({ name, subcountry, country}) => `${name} (${getCaption(country, subcountry)})`}
       disableListWrap
       ListboxComponent={CitiesSelectList}
       renderOption={(props, option, { selected }) => [props, option, selected]}

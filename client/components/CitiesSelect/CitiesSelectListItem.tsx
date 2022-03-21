@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { City } from '../../types/city';
+import { getCaption } from '../../helpers/cities';
 
 interface CitiesSelectListItemProps {
   selected: boolean,
@@ -11,7 +12,7 @@ interface CitiesSelectListItemProps {
 
 const CitiesSelectListItem: React.FC<CitiesSelectListItemProps> = ({ selected, option, ...props }) => {
   const { name, subcountry, country } = option;
-  const caption = subcountry ? `${subcountry} - ${country}` : country;
+  const caption = getCaption(country, subcountry);
 
   return (
     <li {...props}>

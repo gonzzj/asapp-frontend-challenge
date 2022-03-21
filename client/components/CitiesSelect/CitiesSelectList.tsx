@@ -28,7 +28,7 @@ const useResetCache = (dataLength: number) => {
   return ref;
 }
 
-const CitiesSelectList = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLElement>>((props, ref) => {
+const CitiesSelectList: React.FC = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLElement>>((props, ref) => {
   const { children, ...others } = props;
   const itemData: React.ReactChild[] = [];
   (children as React.ReactChild[]).forEach((item: React.ReactChild & { children?: React.ReactChild[] }) => {
