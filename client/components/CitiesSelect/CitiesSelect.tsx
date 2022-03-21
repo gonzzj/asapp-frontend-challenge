@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
 import { SyntheticEvent, useState } from 'react';
 import { matchSorter } from 'match-sorter';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import CitiesSelectListItem from './CitiesSelectListItem';
+import CitiesSelectList from './CitiesSelectList';
 import { City } from '../../types/city';
 
 const CITIES_SELECT_PLACEHOLDER = "Type to filter by city name or country";
@@ -30,19 +31,19 @@ const CitiesSelect: React.FC<CitiesSelectProps> = ({ cities }) => {
   return (
     <Autocomplete
       multiple
+      id="cities-select"
       sx={{ m: 4, width: 860 }}
       filterOptions={filterOptions}
       value={value}
       onChange={handleValueChange}
       inputValue={inputValue}
       onInputChange={handleInputChange}
-      id="cities-select"
-      options={cities}
       disableCloseOnSelect
+      options={cities}
       getOptionLabel={(option) => option.name}
-      renderOption={(props, option, { selected }) => (
-        <CitiesSelectListItem selected={selected} option={option} {...props} />
-      )}
+      disableListWrap
+      ListboxComponent={CitiesSelectList}
+      renderOption={(props, option, { selected }) => [props, option, selected]}
       renderInput={(params) => (
         <TextField {...params} placeholder={CITIES_SELECT_PLACEHOLDER} />
       )}
