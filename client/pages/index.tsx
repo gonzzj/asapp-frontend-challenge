@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import type { NextPage } from 'next'
 import styles from '../styles/Home.module.scss'
 import CitiesSelect from '../modules/withCities'
