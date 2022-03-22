@@ -10,7 +10,7 @@ import CitiesSelectListItemHighlight from './CitiesSelectListItemHighlight';
 interface CitiesSelectListItemProps {
   selected: boolean,
   option: City,
-  inputValue: string,
+  inputValue?: string,
 }
 
 const CitiesSelectListItem: React.FC<CitiesSelectListItemProps> = ({ selected, option, inputValue, ...props }) => {
@@ -44,5 +44,9 @@ const CitiesSelectListItem: React.FC<CitiesSelectListItemProps> = ({ selected, o
     </li>
   )
 };
+
+CitiesSelectListItem.defaultProps = {
+  inputValue: ''
+}
 
 export default CitiesSelectListItem;
