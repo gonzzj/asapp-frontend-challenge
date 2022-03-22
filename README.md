@@ -20,7 +20,10 @@ The API reference is also available at http://localhost:3030/help
 First, install every package in the client and api folder:
 
 ```bash
-npm install
+npm run install-packages
+# or
+cd ./api && npm install
+cd ./client && npm install
 ```
 
 Then, run the API server in another terminal:
