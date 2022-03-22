@@ -1,6 +1,7 @@
-import { createContext, forwardRef, useContext, useRef, useEffect } from 'react';
+import { createContext, forwardRef, useContext, memo } from 'react';
 import { VariableSizeList, ListChildComponentProps } from "react-window";
-import CitiesSelectListItem from './CitiesSelectListItem';
+import CitiesSelectListItem from '../CitiesSelectListItem';
+import useResetCache from '../../../hooks/useResetCache';
 
 const renderListItem = ({ data, index, style }: ListChildComponentProps) => {
   const [listItemProps, option, selected, inputValue] = data[index];
@@ -16,16 +17,6 @@ const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => {
   const outerProps = useContext(OuterElementContext);
   return <div ref={ref} {...props} {...outerProps} />;
 });
-
-const useResetCache = (dataLength: number) => {
-  const ref = useRef<VariableSizeList>(null);
-
-  useEffect(() => {
-    ref.current != null && ref.current.resetAfterIndex(0, true);
-  }, [dataLength]);
-
-  return ref;
-}
 
 const CitiesSelectList: React.FC = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLElement>>((props, ref) => {
   const { children, ...others } = props;

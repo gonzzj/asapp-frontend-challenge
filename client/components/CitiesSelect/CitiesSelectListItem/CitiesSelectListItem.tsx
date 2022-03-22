@@ -3,9 +3,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { City } from '../../types/city';
-import { getMatchParts } from '../../helpers/cities';
-import CitiesSelectListItemHighlight from './CitiesSelectListItemHighlight';
+import { City } from '../../../types/city';
+import { getMatchParts } from '../../../helpers/cities';
+import CitiesSelectListItemHighlight from '../CitiesSelectListItemHighlight';
 
 interface CitiesSelectListItemProps {
   selected: boolean,
